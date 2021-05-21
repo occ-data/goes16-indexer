@@ -16,17 +16,18 @@ Which utilizes `DockerfileTest` to load requirements.txt so they don't have to b
 
 ## Set Creds
 
-The OCC EDC requires Gen3 credentials to submit nodes to the graph. Load them into `src/creds.py` like this:
+The OCC EDC requires Gen3 credentials to submit nodes to the graph. This is generated via login into the EDC host portal: https://portal.occ-data.org and under profile. Load them into `src/creds.py` like this:
 ```
 CREDS = """
 { "api_key": "apikeyhere", "key_id": "keyuuid" }
 """
 ```
+This credential should be assoicated with a user with `data-submitter` user role defined on `user.yaml` file.
 This could be improved in the future to download an encrypted blob from S3 and decrypt it using KMS.
 
 ## Deploying
 
-First set up a lambda function on AWS using python 2.7. Give it a name such as `goes16`. Set SNS on the left side of the Lambda with `arn:aws:sns:us-east-1:123901341784:NewGOES16Object` as the appropriate arn for the GOES-16 feed. Make sure to set the `Handler` in the lambda function to `handler.lambda_handler` so that this will work.
+First set up a lambda function on AWS using python 3.7. Give it a name such as `goes16`. Set SNS on the left side of the Lambda with `arn:aws:sns:us-east-1:123901341784:NewGOES16Object` as the appropriate arn for the GOES-16 feed. Make sure to set the `Handler` in the lambda function to `handler.lambda_handler` so that this will work.
 
 Build the necessary zip file using:
 ```

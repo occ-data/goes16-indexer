@@ -1,4 +1,3 @@
-#from __future__ import print_function
 import json
 import os
 import datetime
@@ -116,8 +115,9 @@ def process_key(key):
     submitter_id = NAME + "_%s_%s%s%s%s%s%s" % (product, year, month, day, hour, minute, second)
     urls = "s3://noaa-goes16/%s,gs://gcp-public-data-goes-16/%s,https://osdc.rcc.uchicago.edu/noaa-goes16/%s" % (key, key, key)
     submit_data = SUBMIT % (data_datetime, filename, filesize, bbox_right, bbox_top, bbox_bottom, bbox_left, submitter_id, product, md5sum, urls)
-    print submit_data
+    print(submit_data)
     auth = get_api_auth('https://portal.occ-data.org/')
+    # print(auth)
     response = requests.put('https://portal.occ-data.org/api/v0/submission/edc/data', headers={'Authorization': 'bearer '+ auth.json()['access_token']}, data=submit_data)
     print(response.text)
 
