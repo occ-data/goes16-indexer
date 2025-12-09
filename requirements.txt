@@ -1,3 +1,4 @@
 netCDF4
 boto3
 requests
+urllib3>=2.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
